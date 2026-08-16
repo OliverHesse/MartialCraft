@@ -1,0 +1,26 @@
+-State
+    -creates a state instance that stores data about that state(for example cancel data etc)
+    -holds a list of stateChangeConditions, only one per possible state is allowed
+    -first evaluates stateChangeConditions, then runs the state
+
+-State Layer
+    -holds a specific superclass of state, and can only accept states of that superclass
+    -responsible for ticking and providing the relevant context window to said State Layer
+    -even if a state does not have an internal connection to another, they can be forcibly changed
+-Entity State
+    -a capability that an entity can hold, used to interface with the state machine.
+    -if a non-existent state layer is queried it should be created
+
+
+-Default state layers
+    -Locomotive
+        -responsible for everything motion, should be functional for every entity, so does not read inputs directly, instead handles some
+        sort of intermediate data, or just create a player and mob version, for example have a generic jump state, which has a player jump and mob jump superclass.
+        we cannot just rely on velocity data, since it does not explain what caused that velocity (e.g player was knocked airborn but is not in a jumping state but launched state. simple velocity would not know that)
+        this could still work however, by treating launched and states like it as "external" where the only way to have it applied is through external means,
+        for now we will use reactive locomotive state.
+        (so the state receives an input vector, this is the player inputs. launched for example would ignore this vector, while idle would move to another state)
+        -states like grounded,airborne or swimming are handled through superclasses
+    -Action
+        -this will behave as a generic non movement state layer, for things like sword swings etc. most situations will only need 1 action layer,
+         but some scenarios (like a dual wielding system) may want to add 2 action layers

@@ -1,0 +1,13 @@
+{
+  "itemGroup.martialcraft": "Example Mod Tab",
+  "block.martialcraft.example_block": "Example Block",
+  "item.martialcraft.example_item": "Example Item",
+
+  "martialcraft.configuration.title": "MartialCraft Configs",
+  "martialcraft.configuration.section.martialcraft.common.toml": "MartialCraft Configs",
+  "martialcraft.configuration.section.martialcraft.common.toml.title": "MartialCraft Configs",
+  "martialcraft.configuration.items": "Item List",
+  "martialcraft.configuration.logDirtBlock": "Log Dirt Block",
+  "martialcraft.configuration.magicNumberIntroduction": "Magic Number Text",
+  "martialcraft.configuration.magicNumber": "Magic Number"
+}
