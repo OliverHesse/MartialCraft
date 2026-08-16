@@ -1,6 +1,6 @@
 package net.lucent.martialcraft.state_machine;
 
-public interface StateInstance {
+public interface StateInstance<T extends State<?,?>> {
 
-    State<?,?> getState();
+    T getState();
 }

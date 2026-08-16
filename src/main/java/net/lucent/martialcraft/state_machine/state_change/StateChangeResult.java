@@ -4,7 +4,7 @@ import net.lucent.martialcraft.state_machine.StateInstance;
 
 public sealed interface StateChangeResult permits StateChangeResult.Change, StateChangeResult.NoChange {
 
-    record Change(StateInstance instance) implements StateChangeResult {
+    record Change(StateInstance<?> instance) implements StateChangeResult {
 
         @Override
         public boolean isSuccess() {
@@ -12,7 +12,7 @@ public sealed interface StateChangeResult permits StateChangeResult.Change, Stat
         }
 
         @Override
-        public StateInstance get() {
+        public StateInstance<?> get() {
             return instance;
         }
     }
@@ -25,12 +25,12 @@ public sealed interface StateChangeResult permits StateChangeResult.Change, Stat
         }
 
         @Override
-        public StateInstance get() {
+        public StateInstance<?> get() {
             return null;
         }
     }
 
     boolean isSuccess();
 
-    StateInstance get();
+    StateInstance<?> get();
 }

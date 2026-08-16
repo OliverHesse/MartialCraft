@@ -18,9 +18,27 @@ public sealed interface StateChangeConditionPosition permits  StateChangeConditi
 
     record BEFORE(State<?,?> state) implements StateChangeConditionPosition {
 
+        @Override
+        public State<?, ?> getTarget() {
+            return state;
+        }
+
+        @Override
+        public int getOffset() {
+            return 0;
+        }
     }
     record AFTER(State<?,?> state) implements StateChangeConditionPosition {
 
+        @Override
+        public State<?, ?> getTarget() {
+            return state;
+        }
+
+        @Override
+        public int getOffset() {
+            return 1;
+        }
     }
     static StateChangeConditionPosition BEFORE(State<?,?> state){
         return new BEFORE(state);
@@ -28,4 +46,8 @@ public sealed interface StateChangeConditionPosition permits  StateChangeConditi
     static StateChangeConditionPosition AFTER(State<?,?> state){
         return new AFTER(state);
     }
+
+    State<?,?> getTarget();
+    //if you were to inert it into a list at the target, what offset is required
+    int getOffset();
 }
