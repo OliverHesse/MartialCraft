@@ -1,17 +1,19 @@
 package net.lucent.martialcraft.state_machine.state_change;
 
 import net.lucent.martialcraft.state_machine.State;
-import net.lucent.martialcraft.state_machine.StateInstance;
+import net.lucent.martialcraft.state_machine.StateContext;
+import net.lucent.martialcraft.state_machine.StateData;
 import net.minecraft.world.entity.LivingEntity;
 
 /**
  * Takes in a context window, and if true we change to the state
  *
  */
-public interface StateChangeCondition<T extends StateChangeConditionContext,S extends State<?,T>> {
+public interface StateChangeCondition<T extends StateContext> {
 
-    S getState();
+    State<?,T> getState();
 
-    StateChangeResult  result(LivingEntity entity, StateInstance<S> stateInstance, T context);
+    StateChangeResult<T> result(LivingEntity entity, State<?,T> currentState, StateData stateData, T context);
+
 
 }

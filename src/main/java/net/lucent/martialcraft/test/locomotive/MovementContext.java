@@ -1,6 +1,7 @@
 package net.lucent.martialcraft.test.locomotive;
 
-import net.lucent.martialcraft.state_machine.state_change.StateChangeConditionContext;
+import net.lucent.martialcraft.state_machine.StateContext;
 
-public class MovementContext implements StateChangeConditionContext {
+public class MovementContext implements StateContext {
+
 }

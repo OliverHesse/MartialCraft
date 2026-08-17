@@ -1,6 +1,7 @@
 package net.lucent.martialcraft.state_machine.state_change;
 
 import net.lucent.martialcraft.state_machine.State;
+import net.lucent.martialcraft.state_machine.StateContext;
 
 /**
  * Defines where in the execution order a condition should be placed.
@@ -12,14 +13,13 @@ import net.lucent.martialcraft.state_machine.State;
  * <br>
  * once all of thema are in place we insert all the specific conditions
  */
-public sealed interface StateChangeConditionPosition permits  StateChangeConditionPosition.BEFORE, StateChangeConditionPosition.AFTER{
-    StateChangeConditionPosition BEFORE_ALL = new BEFORE(null);
-    StateChangeConditionPosition AFTER_ALL = new AFTER(null);
+public sealed interface StateChangeConditionPosition<T extends StateContext> permits  StateChangeConditionPosition.BEFORE, StateChangeConditionPosition.AFTER{
 
-    record BEFORE(State<?,?> state) implements StateChangeConditionPosition {
+
+    record BEFORE<T extends StateContext>(State<?,T> state) implements StateChangeConditionPosition<T> {
 
         @Override
-        public State<?, ?> getTarget() {
+        public State<?, T> getTarget() {
             return state;
         }
 
@@ -28,10 +28,10 @@ public sealed interface StateChangeConditionPosition permits  StateChangeConditi
             return 0;
         }
     }
-    record AFTER(State<?,?> state) implements StateChangeConditionPosition {
+    record AFTER<T extends StateContext>(State<?,T> state) implements StateChangeConditionPosition<T> {
 
         @Override
-        public State<?, ?> getTarget() {
+        public State<?, T> getTarget() {
             return state;
         }
 
@@ -40,14 +40,20 @@ public sealed interface StateChangeConditionPosition permits  StateChangeConditi
             return 1;
         }
     }
-    static StateChangeConditionPosition BEFORE(State<?,?> state){
-        return new BEFORE(state);
+    static <T extends StateContext> StateChangeConditionPosition<T> BEFORE(State<?,T> state){
+        return new BEFORE<T>(state);
     }
-    static StateChangeConditionPosition AFTER(State<?,?> state){
-        return new AFTER(state);
+    static <T extends StateContext> StateChangeConditionPosition<T> AFTER(State<?,T> state){
+        return new AFTER<T>(state);
+    }
+    static <T extends StateContext> StateChangeConditionPosition<T>  BEFORE_ALL(){
+        return new BEFORE<T>(null);
+    }
+    static <T extends StateContext> StateChangeConditionPosition<T>  AFTER_ALL(){
+        return new AFTER<T>(null);
     }
 
-    State<?,?> getTarget();
+    State<?,T> getTarget();
     //if you were to inert it into a list at the target, what offset is required
     int getOffset();
 }

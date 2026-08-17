@@ -1,13 +1,12 @@
 package net.lucent.martialcraft.state_machine;
 
-import net.lucent.martialcraft.state_machine.state_change.StateChangeCondition;
-import net.lucent.martialcraft.state_machine.state_change.StateChangeConditionContext;
+import net.lucent.martialcraft.state_machine.state_change.StateChangeConditionsHolder;
 
-import java.util.List;
 
-public interface State<T extends StateInstance<?>,S extends StateChangeConditionContext> {
+public interface State<T extends StateData,S extends StateContext> {
 
-    List<StateChangeCondition<S,State<?,S>>> getStateChangeConditions();
-
+    StateChangeConditionsHolder<S> getConditionHolder();
     T getFreshStateInstance();
+
+
 }
