@@ -1,7 +1,7 @@
 package net.lucent.martialcraft.test.locomotive;
 
 import net.lucent.martialcraft.MartialCraft;
-import net.minecraft.client.Minecraft;
+import net.lucent.martialcraft.common.MartialCraftAttachments;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Input;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,7 +15,9 @@ public class EventHandler {
     public static void onTick(ServerTickEvent.Pre tickEvent){
         for(ServerPlayer player : tickEvent.getServer().getPlayerList().getPlayers()){
             Input input = player.getLastClientInput();
+            LocomotiveStateLayer layer = player.getData(MartialCraftAttachments.ENTITY_LOCOMOTIVE_STATE);
 
+            layer.evaluateConditions(new MovementContext(input));
         }
     }
 }

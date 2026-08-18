@@ -13,12 +13,12 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 @EventBusSubscriber(modid = MartialCraft.MOD_ID)
 public class LocomotiveStates {
-    public static final ResourceKey<Registry<State<?,?>>> STATE_REGISTRY_KEY = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(MartialCraft.MOD_ID, "states"));
+    public static final ResourceKey<Registry<State<?,MovementContext>>> STATE_REGISTRY_KEY = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(MartialCraft.MOD_ID, "states"));
 
-    public static final Registry<State<?,?>> STATE_REGISTRY =  new RegistryBuilder<>(STATE_REGISTRY_KEY)
+    public static final Registry<State<?,MovementContext>> STATE_REGISTRY =  new RegistryBuilder<>(STATE_REGISTRY_KEY)
             .create();
 
-    public static final DeferredRegister<State<?,?>> STATES = DeferredRegister.create(
+    public static final DeferredRegister<State<?,MovementContext>> STATES = DeferredRegister.create(
             LocomotiveStates.STATE_REGISTRY,
             MartialCraft.MOD_ID
     );

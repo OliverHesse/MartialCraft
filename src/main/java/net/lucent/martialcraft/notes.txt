@@ -34,3 +34,23 @@ most of the time not needed, but is important if we want any states to be "savab
 
 For State Connection /Change have an event called gatherChangeStates? this can be called whenever but ideally in the constructor of the state directly OR on server starting or smth?
 Probably should handle it On registry finished loading? i think this is where FML loading and stuff comes in
+
+consider separating a state change/connection from the state and instead create a connection object that contains origin, target and changeCondition.
+these would still be built the what my StateChangeConditionsHolder works, but will have one holder that builds a holder for each state.
+
+this will then be handled through a StateConnectionProvider
+
+Does not NEED a registry, HOW the Provider is created is not defined, however i would probably do it as a wrapper around a static object.
+this is because each entity receives a fresh instance of a state layer.
+
+so you might create a map of Entity type -> Provider
+then run some event that is like create for entity type. and this would include some generic and some type specific connections.
+this all gets wrapped in a static/constant object that the provider can access
+
+(ok this might make me change my code AGAIN.
+
+OK SO CREATE A STATE MACHINE, this takes ins a StatesProvider, StateConnectionProvider
+this is ideally used as a static/constant
+
+
+Also allows for more diversity, you can very easily limit the available states for different implementations

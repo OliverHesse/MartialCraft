@@ -1,3 +1,5 @@
 fully overriding vanilla movement while possible, will also be a bit annoying, so what I will try initially is a "reactive" system.
 where state just reflects what the entity is currently doing, however custom states like Lift will handle custom movement logic
 so i will need some way to "block" vanilla movement
+
+
