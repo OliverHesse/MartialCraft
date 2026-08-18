@@ -1,31 +1,31 @@
-package net.lucent.martialcraft.state_machine;
+package net.lucent.martialcraft.api.state_machine;
 
-import net.lucent.martialcraft.state_machine.state_change.StateChangeCondition;
-import net.lucent.martialcraft.state_machine.state_change.StateChangeConditionsHolder;
-import net.lucent.martialcraft.state_machine.state_change.StateChangeResult;
+import net.lucent.martialcraft.api.state_machine.state_change.StateChangeCondition;
+import net.lucent.martialcraft.api.state_machine.state_change.StateChangeConditionsHolder;
+import net.lucent.martialcraft.api.state_machine.state_change.StateChangeResult;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.saveddata.SavedData;
 
 /**
  *
  * @param <T> the context window this layer operates in
  */
 public class StateLayer<T extends StateContext>{
-  ;
-    private final State<?,T> defaultState;
+
+    private final LivingEntity attachedEntity;
     private State<?,T> currentState;
     private StateData stateData;
+    private final LayerStatesProvider<T> statesProvider;
 
-    public StateLayer(State<?, T> defaultState) {
-        this.defaultState = defaultState;
-        this.currentState = defaultState;
-        this.stateData = defaultState.getFreshStateInstance();
+    protected StateLayer(LivingEntity attachedEntity, LayerStatesProvider<T> statesProvider) {
+        this.attachedEntity = attachedEntity;
+        this.statesProvider = statesProvider;
     }
+
 
     public State<?,T> getState(){
         return currentState;
     }
-    public StateData getStateInstance(){return stateData;}
+    public StateData getStateData(){return stateData;}
     public void evaluateConditions(LivingEntity entity, T context){
         StateChangeConditionsHolder<T> conditionsHolder = currentState.getConditionHolder();
         for(StateChangeCondition<T> condition : conditionsHolder.conditions()){
@@ -43,8 +43,10 @@ public class StateLayer<T extends StateContext>{
 
     public void changeState(State<?,T> state, StateData data){
         //TODO add leave and enter
+        if(currentState != null) currentState.leaveState(attachedEntity,stateData);
         currentState = state;
         stateData = data;
+        if(currentState != null) currentState.enterState(attachedEntity,stateData);
     }
 
 }

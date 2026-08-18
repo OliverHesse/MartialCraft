@@ -1,4 +1,4 @@
-package net.lucent.martialcraft.state_machine;
+package net.lucent.martialcraft.api.state_machine;
 
 /**
  * A marker interface for something that holds a context window for a state change condition.

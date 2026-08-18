@@ -1,7 +1,7 @@
-package net.lucent.martialcraft.state_machine.state_change;
+package net.lucent.martialcraft.api.state_machine.state_change;
 
-import net.lucent.martialcraft.state_machine.State;
-import net.lucent.martialcraft.state_machine.StateContext;
+import net.lucent.martialcraft.api.state_machine.State;
+import net.lucent.martialcraft.api.state_machine.StateContext;
 
 import java.util.*;
 

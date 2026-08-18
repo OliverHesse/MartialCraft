@@ -24,3 +24,13 @@
     -Action
         -this will behave as a generic non movement state layer, for things like sword swings etc. most situations will only need 1 action layer,
          but some scenarios (like a dual wielding system) may want to add 2 action layers
+
+
+Consider making it a requirement that a StateLayer receives a State Set (aka id-> state of all possible states a layer can be in)
+This would be an interface and in most scenarios would be a wrapper around a registry(would also mean less space instead of a copy of every state to every stateLayer Instance)
+
+most of the time not needed, but is important if we want any states to be "savable" and also for networking
+
+
+For State Connection /Change have an event called gatherChangeStates? this can be called whenever but ideally in the constructor of the state directly OR on server starting or smth?
+Probably should handle it On registry finished loading? i think this is where FML loading and stuff comes in
