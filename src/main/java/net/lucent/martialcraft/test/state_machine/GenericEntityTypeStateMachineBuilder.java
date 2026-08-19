@@ -58,7 +58,7 @@ public class GenericEntityTypeStateMachineBuilder<T extends StateContext> {
 
         public void removeConnection(State<?,T> initialState,State<?,T> finalState){
             StateConnection<T> connection = new StateConnection<>(initialState,finalState);
-            if(!stateConnections.containsKey(connection.initialState)) return;
+            if(!connectionDetailMap.containsKey(connection)) return;
             StateChangeConditionPlacement<T> placement =  connectionDetailMap.remove(connection);
 
             stateConnections.computeIfPresent(connection.initialState(),(key,val)->{
@@ -86,8 +86,28 @@ public class GenericEntityTypeStateMachineBuilder<T extends StateContext> {
             addStateConnection(initialState,placement.condition(),newPosition);
         }
 
+        private void insertPlacement(StateChangeConditionPlacement<T> placement, List<StateChangeCondition<T>> conditionOutput){
+            State<?,T> targetState = placement.position().getTarget();
+            for(int i =0; i<conditionOutput.size();i++){
+                StateChangeCondition<T> condition = conditionOutput.get(i);
+                if(condition.getState() != targetState) continue;
+
+                conditionOutput.add(i+placement.position.getOffset(),placement.condition);
+                return;
+            }
+            conditionOutput.add(placement.condition);
+        }
+
         public Map<State<?,T>,List<StateChangeCondition<T>>> build(){
-            return null;//TODO
+            Map<State<?,T>,List<StateChangeCondition<T>>> output = new HashMap<>();
+            for(State<?,T> state : stateConnections.keySet()){
+                List<StateChangeCondition<T>> conditionOutput = new ArrayList<>();
+                for(State<?,T> targetState : beforeAllStatesOrder.getOrDefault(state,List.of())) conditionOutput.add(connectionDetailMap.get(new StateConnection<>(state,targetState)).condition());
+                for(State<?,T> targetState : afterAllStatesOrder.getOrDefault(state,List.of())) conditionOutput.add(connectionDetailMap.get(new StateConnection<>(state,targetState)).condition());
+                for(State<?,T> targetState : otherStatesOrder.getOrDefault(state,List.of())) insertPlacement(connectionDetailMap.get(new StateConnection<>(state,targetState)),conditionOutput);
+                output.put(state,conditionOutput);
+            }
+            return output;
         }
 
     }
@@ -130,6 +150,7 @@ public class GenericEntityTypeStateMachineBuilder<T extends StateContext> {
         return finalMap;
     }
     private GenericStateMachine<T> buildStateMachine(EntityType<?> type){
-        return null;//TODO
+        var map = builders.get(type).build();
+        return constructor.apply(map);
     }
 }

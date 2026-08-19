@@ -10,12 +10,12 @@ import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
 import java.util.Collection;
-import java.util.List;
 
 @EventBusSubscriber(modid = MartialCraft.MOD_ID)
 public class LocomotiveStates implements StateProvider<MovementContext> {
@@ -29,6 +29,10 @@ public class LocomotiveStates implements StateProvider<MovementContext> {
             MartialCraft.MOD_ID
     );
 
+    public static final DeferredHolder<State<?,MovementContext>,GroundedIdleState> IDLE = STATES.register("idle",GroundedIdleState::new);
+
+    public static final DeferredHolder<State<?,MovementContext>, WalkingState> WALKING = STATES.register("walking", WalkingState::new);
+    public static final DeferredHolder<State<?,MovementContext>, SprintingState> SPRINTING = STATES.register("sprinting", SprintingState::new);
 
     @SubscribeEvent
     public static void registerRegistries(NewRegistryEvent event){

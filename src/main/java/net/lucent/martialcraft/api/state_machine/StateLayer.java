@@ -5,6 +5,8 @@ import net.lucent.martialcraft.test.util.StateChangeConditionsHolder;
 import net.lucent.martialcraft.api.state_machine.state_change.StateChangeResult;
 import net.minecraft.world.entity.LivingEntity;
 
+import java.util.List;
+
 /**
  *
  * @param <T> the context window this layer operates in
@@ -15,9 +17,12 @@ public class StateLayer<T extends StateContext>{
     private State<?,T> currentState;
     private StateData stateData;
     private final StateMachine<T> stateMachine;
-    protected StateLayer(LivingEntity attachedEntity, StateMachine<T> stateMachine) {
+    private final State<?,T> initialState;
+    protected StateLayer(LivingEntity attachedEntity, StateMachine<T> stateMachine, State<?, T> initialState) {
         this.attachedEntity = attachedEntity;
         this.stateMachine = stateMachine;
+        this.initialState = initialState;
+        changeState(initialState);
     }
 
 
@@ -26,8 +31,9 @@ public class StateLayer<T extends StateContext>{
     }
     public StateData getStateData(){return stateData;}
     public void evaluateConditions(T context){
-        StateChangeConditionsHolder<T> conditionsHolder = currentState.getConditionHolder();
-        for(StateChangeCondition<T> condition : conditionsHolder.conditions()){
+        if(currentState == null) return;
+        List<StateChangeCondition<T>> conditions = stateMachine.getStateChangeConditions(currentState);
+        for(StateChangeCondition<T> condition : conditions){
             StateChangeResult<T> result = condition.result(attachedEntity,currentState,stateData,context);
             if(!result.isSuccess()) continue;
             changeState(result.getState(),result.getData());
@@ -36,7 +42,7 @@ public class StateLayer<T extends StateContext>{
     }
 
     public void changeState(State<?,T> state){
-        changeState(state,state.getFreshStateInstance());
+        changeState(state,state.createData());
     }
 
 

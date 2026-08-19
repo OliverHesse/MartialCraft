@@ -17,16 +17,16 @@ public record GenericStateMachine<T extends StateContext>(StateProvider<T> provi
 
     @Override
     public State<?, T> getState(Identifier key) {
-        return null;
+        return provider.getState(key);
     }
 
     @Override
     public Collection<State<?, T>> getStates() {
-        return List.of();
+        return provider.getStates();
     }
 
     @Override
     public List<StateChangeCondition<T>> getStateChangeConditions(State<?, T> state) {
-        return List.of();
+        return connections.getOrDefault(state,List.of());
     }
 }

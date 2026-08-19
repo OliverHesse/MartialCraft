@@ -42,6 +42,17 @@ public sealed interface StateChangeResult<T extends StateContext> permits StateC
         }
     }
 
+    static <T extends StateContext> StateChangeResult<T> success(State<?,T> state){
+        return new Change<>(state,state.createData());
+    }
+    static <T extends StateContext> StateChangeResult<T> success(State<?,T> state,StateData data){
+        return new Change<>(state,data);
+    }
+
+    static <T extends StateContext> StateChangeResult<T> fail(){
+        return new NoChange<>();
+    }
+
     boolean isSuccess();
 
     State<?,T> getState();
