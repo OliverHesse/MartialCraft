@@ -1,7 +1,7 @@
 package net.lucent.martialcraft.test.locomotive.states;
 
 import net.lucent.martialcraft.api.state_machine.StateData;
-import net.lucent.martialcraft.api.state_machine.state_change.StateChangeConditionsHolder;
+import net.lucent.martialcraft.test.util.StateChangeConditionsHolder;
 import net.lucent.martialcraft.test.locomotive.MovementContext;
 import net.lucent.martialcraft.test.locomotive.states.data.EmptyStateData;
 import net.minecraft.world.entity.LivingEntity;

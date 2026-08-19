@@ -1,6 +1,6 @@
 package net.lucent.martialcraft.api.state_machine;
 
-import net.lucent.martialcraft.api.state_machine.state_change.StateChangeConditionsHolder;
+import net.lucent.martialcraft.test.util.StateChangeConditionsHolder;
 import net.minecraft.world.entity.LivingEntity;
 
 

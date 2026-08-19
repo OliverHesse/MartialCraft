@@ -1,4 +1,4 @@
-package net.lucent.martialcraft.api.state_machine.state_change;
+package net.lucent.martialcraft.test.state_machine;
 
 import net.lucent.martialcraft.api.state_machine.State;
 import net.lucent.martialcraft.api.state_machine.StateContext;

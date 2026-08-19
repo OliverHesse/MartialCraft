@@ -54,3 +54,11 @@ this is ideally used as a static/constant
 
 
 Also allows for more diversity, you can very easily limit the available states for different implementations
+
+
+the State Machine does not directly store all valid states, this is because not all states are applied/handled through internal connection conditions (yet at least)
+ideally all states are handled through conditions however states like stun, are easier to handle in an abstract condition
+(however you can still make it work, by having some flag on the entity and if the flag is present change to stun, if the flag is not present remove stun)
+
+the reason this works is because say we have 2 versions of stun, a fire stun and frozen stun. they both block the players movement, which can be handled through a generic
+movement blocked state, then the extra effects of these 2 states, which are not relevant to locomotion, can be handled by an effect system.
