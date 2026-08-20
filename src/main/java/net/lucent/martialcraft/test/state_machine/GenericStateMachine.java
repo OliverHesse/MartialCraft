@@ -11,22 +11,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public record GenericStateMachine<T extends StateContext>(StateProvider<T> provider,Map<State<?,T>,List<StateChangeCondition<T>>> connections) implements StateMachine<T> {
+public record GenericStateMachine<T extends StateContext>(StateProvider<T> provider,Map<State<T>,List<StateChangeCondition<T>>> connections) implements StateMachine<T> {
 
 
 
     @Override
-    public State<?, T> getState(Identifier key) {
+    public State< T> getState(Identifier key) {
         return provider.getState(key);
     }
 
     @Override
-    public Collection<State<?, T>> getStates() {
+    public Identifier getKey(State<T> state) {
+        return provider.getKey(state);
+    }
+
+    @Override
+    public Collection<State<T>> getStates() {
         return provider.getStates();
     }
 
     @Override
-    public List<StateChangeCondition<T>> getStateChangeConditions(State<?, T> state) {
+    public List<StateChangeCondition<T>> getStateChangeConditions(State<T> state) {
         return connections.getOrDefault(state,List.of());
     }
 }

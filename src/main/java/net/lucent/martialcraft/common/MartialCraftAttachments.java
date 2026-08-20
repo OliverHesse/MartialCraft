@@ -15,6 +15,7 @@ public class MartialCraftAttachments {
 
     public static final Supplier<AttachmentType<LocomotiveStateLayer>> ENTITY_LOCOMOTIVE_STATE = ATTACHMENT_TYPES.register(
             "locomotive_state",()->AttachmentType.builder(holder->new LocomotiveStateLayer((LivingEntity) holder))
+                    .sync(new LocomotiveStateLayer.SyncHandler())
                     .build()
     );
 

@@ -4,7 +4,7 @@ import net.lucent.martialcraft.MartialCraft;
 import net.lucent.martialcraft.api.state_machine.State;
 import net.lucent.martialcraft.api.state_machine.state_change.StateChangeCondition;
 import net.lucent.martialcraft.test.locomotive.MovementContext;
-import net.lucent.martialcraft.test.locomotive.states.LocomotiveStates;
+import net.lucent.martialcraft.test.locomotive.LocomotiveStates;
 import net.lucent.martialcraft.test.state_machine.GenericEntityTypeStateMachineBuilder;
 import net.lucent.martialcraft.test.state_machine.GenericStateMachine;
 import net.minecraft.world.entity.EntityType;
@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 @EventBusSubscriber(modid = MartialCraft.MOD_ID)
 public class EntityLocomotiveStateMachines {
-    public static final Function<Map<State<?, MovementContext>, List<StateChangeCondition<MovementContext>>>,GenericStateMachine<MovementContext>>
+    public static final Function<Map<State<MovementContext>, List<StateChangeCondition<MovementContext>>>,GenericStateMachine<MovementContext>>
             CONSTRUCTOR = map->new GenericStateMachine<>(new LocomotiveStates(),map);
 
     private static Map<EntityType<?>, GenericStateMachine<MovementContext>> stateMachines;

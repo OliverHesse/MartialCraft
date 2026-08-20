@@ -11,9 +11,9 @@ import net.minecraft.world.entity.LivingEntity;
  */
 public interface StateChangeCondition<T extends StateContext> {
 
-    State<?,T> getState();
+    State<T> getState();
 
-    StateChangeResult<T> result(LivingEntity entity, State<?,T> currentState, StateData stateData, T context);
+    StateChangeResult<T> result(LivingEntity entity, State<T> currentState, StateData stateData, T context);
 
 
 }

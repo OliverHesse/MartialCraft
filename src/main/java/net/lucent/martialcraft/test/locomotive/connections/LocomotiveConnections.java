@@ -1,12 +1,9 @@
 package net.lucent.martialcraft.test.locomotive.connections;
 
 import net.lucent.martialcraft.MartialCraft;
-import net.lucent.martialcraft.api.state_machine.StateMachine;
 import net.lucent.martialcraft.test.locomotive.state_machines.RegisterLocomotiveConnectionsEvent;
-import net.lucent.martialcraft.test.locomotive.states.LocomotiveStates;
+import net.lucent.martialcraft.test.locomotive.LocomotiveStates;
 import net.lucent.martialcraft.test.state_machine.StateChangeConditionPosition;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

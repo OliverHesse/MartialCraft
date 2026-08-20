@@ -10,6 +10,8 @@ import java.util.Collection;
 public interface StateProvider<T extends StateContext> {
 
 
-    State<?,T> getState(Identifier key);
-    Collection<State<?,T>> getStates();
+    State<T> getState(Identifier key);
+    Identifier getKey(State<T> state);
+
+    Collection<State<T>> getStates();
 }

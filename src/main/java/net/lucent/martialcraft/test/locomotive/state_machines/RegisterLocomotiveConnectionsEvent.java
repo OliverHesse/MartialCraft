@@ -16,28 +16,28 @@ public class RegisterLocomotiveConnectionsEvent extends Event {
         this.builder = builder;
     }
 
-    public void addStateConnection(State<?,MovementContext> state, StateChangeCondition<MovementContext> condition, StateChangeConditionPosition<MovementContext> position){
+    public void addStateConnection(State<MovementContext> state, StateChangeCondition<MovementContext> condition, StateChangeConditionPosition<MovementContext> position){
        builder.addStateConnection(state,condition,position);
 
     }
-    public void addStateConnection(EntityType<?> entityType,State<?,MovementContext> state,StateChangeCondition<MovementContext> condition,StateChangeConditionPosition<MovementContext> position){
+    public void addStateConnection(EntityType<?> entityType,State<MovementContext> state,StateChangeCondition<MovementContext> condition,StateChangeConditionPosition<MovementContext> position){
         builder.addStateConnection(entityType,state,condition,position);
     }
 
 
 
-    public void removeConnection(State<?,MovementContext> initialState,State<?,MovementContext> finalState){
+    public void removeConnection(State<MovementContext> initialState,State<MovementContext> finalState){
         builder.removeConnection(initialState,finalState);
     }
-    public void removeConnection(EntityType<?> entityType,State<?,MovementContext> initialState,State<?,MovementContext> finalState){
+    public void removeConnection(EntityType<?> entityType,State<MovementContext> initialState,State<MovementContext> finalState){
         builder.removeConnection(entityType,initialState,finalState);
     }
 
 
-    public void modifyConnectionPosition(State<?,MovementContext> initialState,State<?,MovementContext> finalState,StateChangeConditionPosition<MovementContext> newPosition){
+    public void modifyConnectionPosition(State<MovementContext> initialState,State<MovementContext> finalState,StateChangeConditionPosition<MovementContext> newPosition){
         builder.modifyConnectionPosition(initialState,finalState,newPosition);
     }
-    public void modifyConnectionPosition(EntityType<?> entityType,State<?,MovementContext> initialState,State<?,MovementContext> finalState,StateChangeConditionPosition<MovementContext> newPosition){
+    public void modifyConnectionPosition(EntityType<?> entityType,State<MovementContext> initialState,State<MovementContext> finalState,StateChangeConditionPosition<MovementContext> newPosition){
         builder.modifyConnectionPosition(entityType,initialState,finalState,newPosition);
     }
 }

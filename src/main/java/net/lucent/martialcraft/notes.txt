@@ -62,3 +62,13 @@ ideally all states are handled through conditions however states like stun, are 
 
 the reason this works is because say we have 2 versions of stun, a fire stun and frozen stun. they both block the players movement, which can be handled through a generic
 movement blocked state, then the extra effects of these 2 states, which are not relevant to locomotion, can be handled by an effect system.
+
+My idea with using generics for the state data might not work... so i will probably need to just pass a Raw StateData and they can cast themselves
+
+Also I will prob change the connection to accept both the start and final state as generic types, that way more specific connections have the state auto filled
+Then for non specific you can just specify while creating the connection
+
+
+So in summary, remove the generic for stateData.
+
+I am considering removing state data

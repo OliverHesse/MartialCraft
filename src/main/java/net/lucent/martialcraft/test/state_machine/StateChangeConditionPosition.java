@@ -16,10 +16,10 @@ import net.lucent.martialcraft.api.state_machine.StateContext;
 public sealed interface StateChangeConditionPosition<T extends StateContext> permits  StateChangeConditionPosition.BEFORE, StateChangeConditionPosition.AFTER{
 
 
-    record BEFORE<T extends StateContext>(State<?,T> state) implements StateChangeConditionPosition<T> {
+    record BEFORE<T extends StateContext>(State<T> state) implements StateChangeConditionPosition<T> {
 
         @Override
-        public State<?, T> getTarget() {
+        public State< T> getTarget() {
             return state;
         }
 
@@ -28,10 +28,10 @@ public sealed interface StateChangeConditionPosition<T extends StateContext> per
             return 0;
         }
     }
-    record AFTER<T extends StateContext>(State<?,T> state) implements StateChangeConditionPosition<T> {
+    record AFTER<T extends StateContext>(State<T> state) implements StateChangeConditionPosition<T> {
 
         @Override
-        public State<?, T> getTarget() {
+        public State< T> getTarget() {
             return state;
         }
 
@@ -40,10 +40,10 @@ public sealed interface StateChangeConditionPosition<T extends StateContext> per
             return 1;
         }
     }
-    static <T extends StateContext> StateChangeConditionPosition<T> BEFORE(State<?,T> state){
+    static <T extends StateContext> StateChangeConditionPosition<T> BEFORE(State<T> state){
         return new BEFORE<T>(state);
     }
-    static <T extends StateContext> StateChangeConditionPosition<T> AFTER(State<?,T> state){
+    static <T extends StateContext> StateChangeConditionPosition<T> AFTER(State<T> state){
         return new AFTER<T>(state);
     }
     static <T extends StateContext> StateChangeConditionPosition<T>  BEFORE_ALL(){
@@ -53,7 +53,7 @@ public sealed interface StateChangeConditionPosition<T extends StateContext> per
         return new AFTER<T>(null);
     }
 
-    State<?,T> getTarget();
+    State<T> getTarget();
     //if you were to inert it into a list at the target, what offset is required
     int getOffset();
 }

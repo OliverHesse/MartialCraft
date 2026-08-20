@@ -6,7 +6,7 @@ import net.lucent.martialcraft.api.state_machine.StateData;
 
 public sealed interface StateChangeResult<T extends StateContext> permits StateChangeResult.Change, StateChangeResult.NoChange {
 
-    record Change<T extends StateContext>(State<?,T> state, StateData instance) implements StateChangeResult<T>{
+    record Change<T extends StateContext>(State<T> state, StateData instance) implements StateChangeResult<T>{
 
         @Override
         public boolean isSuccess() {
@@ -14,7 +14,7 @@ public sealed interface StateChangeResult<T extends StateContext> permits StateC
         }
 
         @Override
-        public State<?, T> getState() {
+        public State<T> getState() {
             return state;
         }
 
@@ -32,7 +32,7 @@ public sealed interface StateChangeResult<T extends StateContext> permits StateC
         }
 
         @Override
-        public State<?, T> getState() {
+        public State<T> getState() {
             return null;
         }
 
@@ -42,10 +42,10 @@ public sealed interface StateChangeResult<T extends StateContext> permits StateC
         }
     }
 
-    static <T extends StateContext> StateChangeResult<T> success(State<?,T> state){
+    static <T extends StateContext> StateChangeResult<T> success(State<T> state){
         return new Change<>(state,state.createData());
     }
-    static <T extends StateContext> StateChangeResult<T> success(State<?,T> state,StateData data){
+    static <T extends StateContext> StateChangeResult<T> success(State<T> state,StateData data){
         return new Change<>(state,data);
     }
 
@@ -55,6 +55,6 @@ public sealed interface StateChangeResult<T extends StateContext> permits StateC
 
     boolean isSuccess();
 
-    State<?,T> getState();
+    State<T> getState();
     StateData getData();
 }

@@ -1,7 +1,7 @@
 package net.lucent.martialcraft;
 
 import net.lucent.martialcraft.common.MartialCraftAttachments;
-import net.lucent.martialcraft.test.locomotive.states.LocomotiveStates;
+import net.lucent.martialcraft.test.locomotive.LocomotiveStates;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
